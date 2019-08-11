@@ -1,0 +1,11 @@
+{
+  "[javascript]": { "editor.formatOnSave": false },
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [{ "language": "javascript", "autoFix": true }],
+  "javascript.implicitProjectConfig.checkJs": true,
+  "editor.formatOnSave": true,
+  "debug.node.autoAttach": "on",
+  "codemetrics.basics.ComplexityLevelNormal": 14,
+  "codemetrics.basics.ComplexityLevelHigh": 15,
+  "codemetrics.basics.Exclude": ["**/tests/**"]
+}
