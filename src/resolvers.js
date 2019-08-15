@@ -1,5 +1,3 @@
-const { users, posts, albums, todos, comments, photos } = require('./dataStore');
-
 /**
  *
  * @param {any[]} array
@@ -21,26 +19,26 @@ const limitAndSort = (array, sortById, limit) => {
 /** @type {import('apollo-server').IResolvers} */
 module.exports = {
   Query: {
-    users: () => users,
-    user: (_, args) => users.find(user => user.id === args.userId)
+    users: (_, __, context) => context.users,
+    user: (_, args, context) => context.users.find(user => user.id === args.userId)
   },
   User: {
-    albums: parent => albums.filter(album => album.userId === parent.id),
-    todos: parent => todos.filter(todo => todo.userId === parent.id),
-    posts: (parent, args) => {
+    albums: (parent, _, context) => context.albums.filter(album => album.userId === parent.id),
+    todos: (parent, _, context) => context.todos.filter(todo => todo.userId === parent.id),
+    posts: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredPosts = posts.filter(post => post.userId === parent.id);
+      const filteredPosts = context.posts.filter(post => post.userId === parent.id);
       return limitAndSort(filteredPosts, sortById, limit);
     }
   },
   Post: {
-    comments: (parent, args) => {
+    comments: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredComments = comments.filter(comment => comment.postId === parent.id);
+      const filteredComments = context.comments.filter(comment => comment.postId === parent.id);
       return limitAndSort(filteredComments, sortById, limit);
     }
   },
   Album: {
-    photos: parent => photos.filter(photo => photo.albumId === parent.id)
+    photos: (parent, _, context) => context.photos.filter(photo => photo.albumId === parent.id)
   }
 };
