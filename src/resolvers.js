@@ -19,26 +19,26 @@ const limitAndSort = (array, sortById, limit) => {
 /** @type {import('apollo-server').IResolvers} */
 module.exports = {
   Query: {
-    users: (_, __, context) => context.users,
-    user: (_, args, context) => context.users.find(user => user.id === args.userId)
+    users: (_, __, context) => context.user.findAll(),
+    user: (_, args, context) => context.user.findById(args.userId)
   },
   User: {
-    albums: (parent, _, context) => context.albums.filter(album => album.userId === parent.id),
-    todos: (parent, _, context) => context.todos.filter(todo => todo.userId === parent.id),
+    albums: (parent, _, context) => context.album.findByUserId(parent.id),
+    todos: (parent, _, context) => context.todo.findByUserId(parent.id),
     posts: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredPosts = context.posts.filter(post => post.userId === parent.id);
+      const filteredPosts = context.post.findByUserId(parent.id);
       return limitAndSort(filteredPosts, sortById, limit);
     }
   },
   Post: {
     comments: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredComments = context.comments.filter(comment => comment.postId === parent.id);
+      const filteredComments = context.comment.findByPostId(parent.id);
       return limitAndSort(filteredComments, sortById, limit);
     }
   },
   Album: {
-    photos: (parent, _, context) => context.photos.filter(photo => photo.albumId === parent.id)
+    photos: (parent, _, context) => context.photo.findByAlbumId(parent.id)
   }
 };
