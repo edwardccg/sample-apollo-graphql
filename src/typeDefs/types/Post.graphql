@@ -1,0 +1,12 @@
+# import SortType from '../enums.graphql'
+# import Comment from './Comment.graphql'
+
+"""
+Post by the user
+"""
+type Post {
+  id: Int
+  title: String
+  body: String
+  comments(limit: Int, sortById: SortType): [Comment] #relation to comments
+}

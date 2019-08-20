@@ -1,0 +1,10 @@
+# import Photo from './Photo.graphql'
+
+"""
+User Album
+"""
+type Album {
+  id: Int
+  title: String
+  photos: [Photo]
+}
