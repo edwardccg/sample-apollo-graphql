@@ -1,3 +1,4 @@
+const { DateTimeResolver, EmailAddressResolver } = require('graphql-scalars');
 /**
  *
  * @param {any[]} array
@@ -18,6 +19,8 @@ const limitAndSort = (array, sortById, limit) => {
 
 /** @type {import('apollo-server').IResolvers} */
 module.exports = {
+  DateTime: DateTimeResolver,
+  EmailAddress: EmailAddressResolver,
   Query: {
     users: (_, __, context) => context.user.findAll(),
     user: (_, args, context) => context.user.findById(args.userId)

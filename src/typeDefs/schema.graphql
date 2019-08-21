@@ -1,5 +1,8 @@
 # import User from './types/User.graphql'
 
+scalar DateTime
+scalar EmailAddress
+
 # Query is the reserved type for query operation
 type Query {
   users: [User]

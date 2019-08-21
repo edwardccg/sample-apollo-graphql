@@ -13,6 +13,7 @@
     "apollo-server": "^2.8.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
+    "graphql-scalars": "^1.0.1",
     "lowdb": "^1.0.0"
   },
   "devDependencies": {
