@@ -1,0 +1,9 @@
+"""
+Comment to the post by other people
+"""
+type Comment {
+  id: Int
+  name: String
+  email: String
+  body: String
+}

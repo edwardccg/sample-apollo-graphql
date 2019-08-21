@@ -1,0 +1,9 @@
+"""
+Photo that store inside the Album
+"""
+type Photo {
+  id: Int
+  title: String
+  url: String
+  thumbnailUrl: String
+}

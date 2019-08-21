@@ -1,0 +1,8 @@
+"""
+Todo item by the user
+"""
+type Todo {
+  id: Int
+  title: String
+  completed: Boolean
+}
