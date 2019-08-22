@@ -55,4 +55,12 @@ const photo = {
       .value()
 };
 
-module.exports = { user, album, todo, post, comment, photo };
+const content = {
+  searchContentByBody: body => {
+    const posts = db.get('posts').filter(val => val.body.includes(body));
+    const comments = db.get('comments').filter(val => val.body.includes(body));
+    return [...posts, ...comments];
+  }
+};
+
+module.exports = { user, album, todo, post, comment, photo, content };

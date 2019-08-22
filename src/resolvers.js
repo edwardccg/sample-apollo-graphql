@@ -21,9 +21,18 @@ const limitAndSort = (array, sortById, limit) => {
 module.exports = {
   DateTime: DateTimeResolver,
   EmailAddress: EmailAddressResolver,
+  Content: {
+    __resolveType: parent => {
+      if (parent.title) {
+        return 'Post';
+      }
+      return 'Comment';
+    }
+  },
   Query: {
     users: (_, __, context) => context.user.findAll(),
-    user: (_, args, context) => context.user.findById(args.userId)
+    user: (_, args, context) => context.user.findById(args.userId),
+    searchContent: (_, args, context) => context.content.searchContentByBody(args.body)
   },
   User: {
     albums: (parent, _, context) => context.album.findByUserId(parent.id),

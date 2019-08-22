@@ -1,4 +1,5 @@
 # import User from './types/User.graphql'
+# import Content from './interfaces.graphql'
 
 scalar DateTime
 scalar EmailAddress
@@ -7,4 +8,5 @@ scalar EmailAddress
 type Query {
   users: [User]
   user(userId: Int!): User
+  searchContent(body: String!): [Content]
 }

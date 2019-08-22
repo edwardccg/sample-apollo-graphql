@@ -1,0 +1,4 @@
+interface Content {
+  id: Int
+  body: String
+}

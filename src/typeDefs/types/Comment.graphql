@@ -1,7 +1,9 @@
+# import Content from '../interfaces.graphql'
+
 """
 Comment to the post by other people
 """
-type Comment {
+type Comment implements Content {
   id: Int
   name: String
   email: EmailAddress

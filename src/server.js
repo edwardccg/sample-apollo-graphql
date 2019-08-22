@@ -4,14 +4,14 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
-const { user, album, todo, post, comment, photo } = require('./dataStore');
+const { user, album, todo, post, comment, photo, content } = require('./dataStore');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: { user, album, todo, post, comment, photo },
+  // context: { user, album, todo, post, comment, photo, content },
   context: ({ connection, req, res }) => {
-    return { user, album, todo, post, comment, photo };
+    return { user, album, todo, post, comment, photo, content };
   }
 });
 

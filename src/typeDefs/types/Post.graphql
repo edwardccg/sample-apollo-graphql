@@ -1,10 +1,11 @@
 # import SortType from '../enums.graphql'
+# import Content from '../interfaces.graphql'
 # import Comment from './Comment.graphql'
 
 """
 Post by the user
 """
-type Post {
+type Post implements Content {
   id: Int
   title: String
   body: String
