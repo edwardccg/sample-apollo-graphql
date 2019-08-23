@@ -30,27 +30,27 @@ module.exports = {
     }
   },
   Query: {
-    users: (_, __, context) => context.user.findAll(),
+    users: (_, __, context) => context.user.getAll(),
     user: (_, args, context) => context.user.findById(args.userId),
     searchContent: (_, args, context) => context.content.searchContentByBody(args.body)
   },
   User: {
-    albums: (parent, _, context) => context.album.findByUserId(parent.id),
-    todos: (parent, _, context) => context.todo.findByUserId(parent.id),
+    albums: (parent, _, context) => context.album.filterByUserId(parent.id),
+    todos: (parent, _, context) => context.todo.filterByUserId(parent.id),
     posts: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredPosts = context.post.findByUserId(parent.id);
+      const filteredPosts = context.post.filterByUserId(parent.id);
       return limitAndSort(filteredPosts, sortById, limit);
     }
   },
   Post: {
     comments: (parent, args, context) => {
       const { sortById, limit } = args;
-      const filteredComments = context.comment.findByPostId(parent.id);
+      const filteredComments = context.comment.filterByPostId(parent.id);
       return limitAndSort(filteredComments, sortById, limit);
     }
   },
   Album: {
-    photos: (parent, _, context) => context.photo.findByAlbumId(parent.id)
+    photos: (parent, _, context) => context.photo.filterByAlbumId(parent.id)
   }
 };

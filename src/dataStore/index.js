@@ -7,7 +7,7 @@ const dbPath = path.join(__dirname, './db.json');
 const db = low(new FileSync(dbPath));
 
 const user = {
-  findAll: () => db.get('users').value(),
+  getAll: () => db.get('users').value(),
   findById: id =>
     db
       .get('users')
@@ -16,7 +16,7 @@ const user = {
 };
 
 const album = {
-  findByUserId: userId =>
+  filterByUserId: userId =>
     db
       .get('albums')
       .filter({ userId })
@@ -24,7 +24,7 @@ const album = {
 };
 
 const todo = {
-  findByUserId: userId =>
+  filterByUserId: userId =>
     db
       .get('todos')
       .filter({ userId })
@@ -32,7 +32,7 @@ const todo = {
 };
 
 const post = {
-  findByUserId: userId =>
+  filterByUserId: userId =>
     db
       .get('posts')
       .filter({ userId })
@@ -40,7 +40,7 @@ const post = {
 };
 
 const comment = {
-  findByPostId: postId =>
+  filterByPostId: postId =>
     db
       .get('comments')
       .filter({ postId })
@@ -48,7 +48,7 @@ const comment = {
 };
 
 const photo = {
-  findByAlbumId: albumId =>
+  filterByAlbumId: albumId =>
     db
       .get('photos')
       .filter({ albumId })
