@@ -1,5 +1,6 @@
 # import User from './types/User.graphql'
 # import Content from './interfaces.graphql'
+# import SearchResult from './unions.graphql'
 
 scalar DateTime
 scalar EmailAddress
@@ -9,4 +10,5 @@ type Query {
   users: [User]
   user(userId: Int!): User
   searchContent(body: String!, limitEach: Int = 3): [Content]
+  searchAll(text: String!, limitEach: Int = 3): [SearchResult]
 }

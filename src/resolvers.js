@@ -29,10 +29,31 @@ module.exports = {
       return 'Comment';
     }
   },
+  SearchResult: {
+    __resolveType: parent => {
+      if (parent.username) {
+        return 'User';
+      }
+      if (parent.email) {
+        return 'Comment';
+      }
+      if (parent.body) {
+        return 'Post';
+      }
+      if (parent.url) {
+        return 'Photo';
+      }
+      if (parent.completed !== undefined) {
+        return 'Todo';
+      }
+      return 'Album';
+    }
+  },
   Query: {
     users: (_, __, context) => context.user.getAll(),
     user: (_, args, context) => context.user.findById(args.userId),
-    searchContent: (_, args, context) => context.aggregate.searchContentByBody(args.body, args.limitEach)
+    searchContent: (_, args, context) => context.aggregate.searchContentByBody(args.body, args.limitEach),
+    searchAll: (_, args, context) => context.aggregate.searchAll(args.text, args.limitEach)
   },
   User: {
     albums: (parent, _, context) => context.album.filterByUserId(parent.id),

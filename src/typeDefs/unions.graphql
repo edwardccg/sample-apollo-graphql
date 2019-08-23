@@ -1,0 +1,8 @@
+# import User from './types/User.graphql'
+# import Post from './types/Post.graphql'
+# import Comment from './types/Comment.graphql'
+# import Album from './types/Album.graphql'
+# import Photo from './types/Photo.graphql'
+# import Todo from './types/Todo.graphql'
+
+union SearchResult = User | Post | Comment | Album | Photo | Todo
