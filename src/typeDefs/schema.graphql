@@ -8,5 +8,5 @@ scalar EmailAddress
 type Query {
   users: [User]
   user(userId: Int!): User
-  searchContent(body: String!): [Content]
+  searchContent(body: String!, limitEach: Int = 3): [Content]
 }

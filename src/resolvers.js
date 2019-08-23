@@ -32,7 +32,7 @@ module.exports = {
   Query: {
     users: (_, __, context) => context.user.getAll(),
     user: (_, args, context) => context.user.findById(args.userId),
-    searchContent: (_, args, context) => context.aggregate.searchContentByBody(args.body)
+    searchContent: (_, args, context) => context.aggregate.searchContentByBody(args.body, args.limitEach)
   },
   User: {
     albums: (parent, _, context) => context.album.filterByUserId(parent.id),

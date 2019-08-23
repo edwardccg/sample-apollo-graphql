@@ -37,10 +37,11 @@ const post = {
       .get('posts')
       .filter({ userId })
       .value(),
-  filterByBodyContains: body =>
+  filterByBodyContains: (body, limitEach) =>
     db
       .get('posts')
       .filter(val => val.body.includes(body))
+      .take(limitEach)
       .value()
 };
 
@@ -50,10 +51,11 @@ const comment = {
       .get('comments')
       .filter({ postId })
       .value(),
-  filterByBodyContains: body =>
+  filterByBodyContains: (body, limitEach) =>
     db
       .get('comments')
       .filter(val => val.body.includes(body))
+      .take(limitEach)
       .value()
 };
 
@@ -66,9 +68,9 @@ const photo = {
 };
 
 const aggregate = {
-  searchContentByBody: body => {
-    const posts = post.filterByBodyContains(body);
-    const comments = comment.filterByBodyContains(body);
+  searchContentByBody: (body, limitEach) => {
+    const posts = post.filterByBodyContains(body, limitEach);
+    const comments = comment.filterByBodyContains(body, limitEach);
     return [...posts, ...comments];
   }
 };
