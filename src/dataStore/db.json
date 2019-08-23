@@ -599,30 +599,6 @@
       "id": 100,
       "title": "at nam consequatur ea labore ea harum",
       "body": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"
-    },
-    {
-      "id": 101,
-      "userId": 10,
-      "title": "GraphQL is amazing",
-      "body": " You should learn GraphQL"
-    },
-    {
-      "id": 102,
-      "userId": 10,
-      "title": "GraphQL is amazing",
-      "body": " You should learn GraphQL"
-    },
-    {
-      "id": 103,
-      "userId": 10,
-      "title": "GraphQL is amazing",
-      "body": " You should learn GraphQL"
-    },
-    {
-      "id": 104,
-      "userId": 6,
-      "title": "React is amazing",
-      "body": " You should learn GraphQL"
     }
   ],
   "comments": [
