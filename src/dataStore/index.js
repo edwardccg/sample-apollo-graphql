@@ -57,8 +57,14 @@ const photo = {
 
 const content = {
   searchContentByBody: body => {
-    const posts = db.get('posts').filter(val => val.body.includes(body));
-    const comments = db.get('comments').filter(val => val.body.includes(body));
+    const posts = db
+      .get('posts')
+      .filter(val => val.body.includes(body))
+      .value();
+    const comments = db
+      .get('comments')
+      .filter(val => val.body.includes(body))
+      .value();
     return [...posts, ...comments];
   }
 };
