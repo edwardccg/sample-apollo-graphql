@@ -1,4 +1,4 @@
-const { DateTimeResolver, EmailAddressResolver } = require('graphql-scalars');
+const { DateTimeResolver, EmailAddressResolver, JSONObjectResolver } = require('graphql-scalars');
 /**
  *
  * @param {any[]} array
@@ -21,6 +21,7 @@ const limitAndSort = (array, sortById, limit) => {
 module.exports = {
   DateTime: DateTimeResolver,
   EmailAddress: EmailAddressResolver,
+  JSONObject: JSONObjectResolver,
   Content: {
     __resolveType: parent => {
       if (parent.title) {
@@ -48,6 +49,10 @@ module.exports = {
       }
       return 'Album';
     }
+  },
+  Mutation: {
+    createPost: (_, args, context) => context.post.createPost(args.payload),
+    updatePost: (_, args, context) => context.post.updatePost(args.payload)
   },
   Query: {
     users: (_, __, context) => context.user.getAll(),

@@ -1,103 +1,89 @@
 const path = require('path');
-
+const lodashId = require('lodash-id');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
 const dbPath = path.join(__dirname, './db.json');
 const db = low(new FileSync(dbPath));
+db._.mixin(lodashId);
+
+const userCollection = db.get('users');
+const albumCollection = db.get('albums');
+const todoCollection = db.get('todos');
+const postCollection = db.get('posts');
+const commentCollection = db.get('comments');
+const photoCollection = db.get('photos');
 
 const user = {
-  getAll: () => db.get('users').value(),
-  findById: id =>
-    db
-      .get('users')
-      .find({ id })
-      .value(),
+  getAll: () => userCollection.value(),
+  findById: id => userCollection.find({ id }).value(),
   filterByNameContains: (text, limitEach) =>
-    db
-      .get('users')
+    userCollection
       .filter(val => val.name.includes(text))
       .take(limitEach)
       .value()
 };
 
 const album = {
-  filterByUserId: userId =>
-    db
-      .get('albums')
-      .filter({ userId })
-      .value(),
+  filterByUserId: userId => albumCollection.filter({ userId }).value(),
   filterByTitleContains: (text, limitEach) =>
-    db
-      .get('albums')
+    albumCollection
       .filter(val => val.title.includes(text))
       .take(limitEach)
       .value()
 };
 
 const todo = {
-  filterByUserId: userId =>
-    db
-      .get('todos')
-      .filter({ userId })
-      .value(),
+  filterByUserId: userId => todoCollection.filter({ userId }).value(),
   filterByTitleContains: (text, limitEach) =>
-    db
-      .get('todos')
+    todoCollection
       .filter(val => val.title.includes(text))
       .take(limitEach)
       .value()
 };
 
 const post = {
-  filterByUserId: userId =>
-    db
-      .get('posts')
-      .filter({ userId })
-      .value(),
+  filterByUserId: userId => postCollection.filter({ userId }).value(),
   filterByBodyContains: (body, limitEach) =>
-    db
-      .get('posts')
+    postCollection
       .filter(val => val.body.includes(body))
       .take(limitEach)
       .value(),
   filterByTitleContains: (text, limitEach) =>
-    db
-      .get('posts')
+    postCollection
       .filter(val => val.title.includes(text))
       .take(limitEach)
-      .value()
+      .value(),
+  createPost: post => {
+    const lastPost = postCollection.maxBy(val => val.id).value();
+    const id = lastPost.id + 1;
+    return postCollection.insert({ id, ...post }).write();
+  },
+  updatePost: post =>
+    postCollection
+      .find({ id: post.id })
+      .assign(post)
+      .write()
 };
 
 const comment = {
-  filterByPostId: postId =>
-    db
-      .get('comments')
-      .filter({ postId })
-      .value(),
+  filterByPostId: postId => commentCollection.filter({ postId }).value(),
   filterByBodyContains: (body, limitEach) =>
-    db
-      .get('comments')
+    commentCollection
       .filter(val => val.body.includes(body))
       .take(limitEach)
       .value(),
   filterByNameContains: (text, limitEach) =>
-    db
-      .get('comments')
+    commentCollection
       .filter(val => val.name.includes(text))
       .take(limitEach)
       .value()
 };
 
 const photo = {
-  filterByAlbumId: albumId =>
-    db
-      .get('photos')
-      .filter({ albumId })
-      .value(),
+  filterByAlbumId: albumId => photoCollection.filter({ albumId }).value(),
   filterByTitleContains: (text, limitEach) =>
-    db
-      .get('photos')
+    photoCollection
       .filter(val => val.title.includes(text))
       .take(limitEach)
       .value()

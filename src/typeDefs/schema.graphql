@@ -1,9 +1,13 @@
 # import User from './types/User.graphql'
+# import Post from './types/Post.graphql'
 # import Content from './interfaces.graphql'
 # import SearchResult from './unions.graphql'
 
+# import PostCreateInput, PostUpdateInput from './inputs.graphql'
+
 scalar DateTime
 scalar EmailAddress
+scalar JSONObject
 
 # Query is the reserved type for query operation
 type Query {
@@ -11,4 +15,9 @@ type Query {
   user(userId: Int!): User
   searchContent(body: String!, limitEach: Int = 3): [Content]
   searchAll(text: String!, limitEach: Int = 3): [SearchResult]
+}
+
+type Mutation {
+  createPost(payload: PostCreateInput): JSONObject
+  updatePost(payload: PostUpdateInput): JSONObject
 }
