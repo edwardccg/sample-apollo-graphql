@@ -36,6 +36,11 @@ const post = {
     db
       .get('posts')
       .filter({ userId })
+      .value(),
+  filterByBodyContains: body =>
+    db
+      .get('posts')
+      .filter(val => val.body.includes(body))
       .value()
 };
 
@@ -44,6 +49,11 @@ const comment = {
     db
       .get('comments')
       .filter({ postId })
+      .value(),
+  filterByBodyContains: body =>
+    db
+      .get('comments')
+      .filter(val => val.body.includes(body))
       .value()
 };
 
@@ -55,18 +65,12 @@ const photo = {
       .value()
 };
 
-const content = {
+const aggregate = {
   searchContentByBody: body => {
-    const posts = db
-      .get('posts')
-      .filter(val => val.body.includes(body))
-      .value();
-    const comments = db
-      .get('comments')
-      .filter(val => val.body.includes(body))
-      .value();
+    const posts = post.filterByBodyContains(body);
+    const comments = comment.filterByBodyContains(body);
     return [...posts, ...comments];
   }
 };
 
-module.exports = { user, album, todo, post, comment, photo, content };
+module.exports = { user, album, todo, post, comment, photo, aggregate };
