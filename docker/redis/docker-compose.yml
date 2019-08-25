@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  local-redis:
+    image: redis:5.0.5
+    container_name: local-redis
+    hostname: local-redis
+    ports:
+      - '6379:6379'
+    restart: on-failure

@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "dc:redis": "docker-compose -f ./docker/redis/docker-compose.yml"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "apollo-server": "^2.8.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
+    "graphql-redis-subscriptions": "^2.1.1",
     "graphql-scalars": "^1.0.1",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0"
