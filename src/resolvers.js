@@ -51,9 +51,27 @@ module.exports = {
     }
   },
   Mutation: {
-    createPost: (_, args, context) => context.post.createPost(args.payload),
-    updatePost: (_, args, context) => context.post.updatePost(args.payload),
+    createPost: (_, args, context) => {
+      const result = context.post.createPost(args.payload);
+      context.pubSub.publish('postCreated', result);
+      return result;
+    },
+    updatePost: (_, args, context) => {
+      const result = context.post.updatePost(args.payload);
+      context.pubSub.publish('postUpdated', result);
+      return result;
+    },
     deletePost: (_, args, context) => context.post.deletePost(args.postId)
+  },
+  Subscription: {
+    postCreated: {
+      resolve: parent => ({ ...parent }),
+      subscribe: (_, __, context) => context.pubSub.asyncIterator('postCreated')
+    },
+    postUpdated: {
+      resolve: parent => ({ ...parent }),
+      subscribe: (_, __, context) => context.pubSub.asyncIterator('postUpdated')
+    }
   },
   Query: {
     users: (_, __, context) => context.user.getAll(),

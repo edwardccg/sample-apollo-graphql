@@ -22,3 +22,8 @@ type Mutation {
   updatePost(payload: PostUpdateInput!): JSONObject
   deletePost(postId: Int!): String
 }
+
+type Subscription {
+  postCreated: Post
+  postUpdated: Post
+}
