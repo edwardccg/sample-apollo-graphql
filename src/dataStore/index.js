@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+// @ts-nocheck
 const path = require('path');
 const lodashId = require('lodash-id');
 const low = require('lowdb');
@@ -63,7 +65,12 @@ const post = {
     postCollection
       .find({ id: post.id })
       .assign(post)
-      .write()
+      .write(),
+  deletePost: postId => {
+    commentCollection.remove({ postId }).write(); // delete comments that associate to Post first
+    postCollection.remove({ id: postId }).write();
+    return 'SUCCESS';
+  }
 };
 
 const comment = {

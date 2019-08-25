@@ -52,7 +52,8 @@ module.exports = {
   },
   Mutation: {
     createPost: (_, args, context) => context.post.createPost(args.payload),
-    updatePost: (_, args, context) => context.post.updatePost(args.payload)
+    updatePost: (_, args, context) => context.post.updatePost(args.payload),
+    deletePost: (_, args, context) => context.post.deletePost(args.postId)
   },
   Query: {
     users: (_, __, context) => context.user.getAll(),

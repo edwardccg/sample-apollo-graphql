@@ -18,6 +18,7 @@ type Query {
 }
 
 type Mutation {
-  createPost(payload: PostCreateInput): JSONObject
-  updatePost(payload: PostUpdateInput): JSONObject
+  createPost(payload: PostCreateInput!): JSONObject
+  updatePost(payload: PostUpdateInput!): JSONObject
+  deletePost(postId: Int!): String
 }
