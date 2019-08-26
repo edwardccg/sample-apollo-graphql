@@ -81,7 +81,24 @@ module.exports = {
   },
   User: {
     albums: (parent, _, context) => context.album.filterByUserId(parent.id),
-    todos: (parent, _, context) => context.todo.filterByUserId(parent.id),
+    todolist: (parent, args, context) => {
+      const todos = context.todo.filterByUserId(parent.id).sort((a, b) => b.id - a.id);
+
+      let { cursor } = args;
+      const { limit } = args;
+      if (!cursor) {
+        // when no cursor, default point to the first item
+        cursor = todos[0].id;
+      }
+
+      const todoBeginIndex = todos.findIndex(val => val.id <= cursor);
+      const todoEndIndex = todoBeginIndex + limit;
+      const slicedTodos = todos.slice(todoBeginIndex, todoEndIndex);
+      return {
+        todos: slicedTodos,
+        cursor: (todos[todoEndIndex] || {}).id
+      };
+    },
     posts: (parent, args, context) => {
       const { sortById, limit } = args;
       const filteredPosts = context.post.filterByUserId(parent.id);

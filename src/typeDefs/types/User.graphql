@@ -21,7 +21,11 @@ type User {
   createdDatetime: DateTime
   posts(limit: Int, sortById: SortType): [Post] #relation to posts
   albums: [Album] #relation to albums
-  todos: [Todo] #relation to todos
+  todolist(cursor: Int, limit: Int = 5): TodoList
+}
+type TodoList {
+  cursor: Int
+  todos: [Todo]
 }
 type Address {
   street: String
